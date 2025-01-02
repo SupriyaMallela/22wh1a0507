@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Test Page</title>
+</head>
+<body>
+    <h1 id="greeting">Hello, World!</h1>
+    <button id="changeText">Change Greeting</button>
+    
+    <script>
+        // JavaScript code to change the text
+        document.getElementById('changeText').addEventListener('click', function() {
+            document.getElementById('greeting').innerText = 'Hello, Selenium!';
+        });
+    </script>
+</body>
+</html>

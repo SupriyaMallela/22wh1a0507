@@ -1,0 +1,186 @@
+1) HTML registration Page 
+1. Open VS code or notepad and type your html page. 
+2. save this html page in a new folder in file explorer, example : save it in "DevOps"
+
+2) explore git and GitHub commands 
+git - version control system that helps track change to filed over tie. maintains a local reposiroty where commit changes to the project before pushing it to the central repository on GitHub 
+GitHub - developer platform that allows developers to create, store, manage and share their code. it uses git software, providing the distributed version control of git plus access control, bug racking, software feature requests, tast managements, continuous integration.
+Git commands : working with local repositories
+	1. git init - used to create an empty git repository in the current directory
+	2. git add - adds changes in the working directory to the staging area, prepares files for the next commit
+	3. git commit - saves the staged changes to the repository history, requires a commit message to describe the changes 
+	4. git status - Shows the status of changes in the working directory and staging area. Indicates tracked/untracked files and changes to be committed.
+	5. git config - Configures Git settings like username, email, or aliases. Example: git config --global user.name "Your Name".
+	6. git branch - Lists, creates, or deletes branches. Example: git branch lists branches; git branch new-branch creates one.
+	7. git checkout - Switches to a specified branch or commit. Example: git checkout branch-name.
+	8. git merge - Combines changes from one branch into the current branch. Used to integrate feature branches into the main branch.
+Git commands : working with remote repositories
+	1. git remote add origin <address> - links local repository to remote repository
+	2. git clone - creates copy of remote repository in local machine
+	3. git push  uploads commits from your local repository to the remote repository
+
+3) Practise source code management on GitHub, push a file on computer to GitHub account 
+1. create GitHub account 
+2. create a new repository 
+3. open gitbash [if not there, then install it from browser]
+4. in the gitbash terminal, type the following 
+	git config --global user.name "<your GitHub account username>"
+	git config --global user.email <your GitHub mail account>
+	cd <path of DevOps folder created in exp1> [if there is any error, change the \ to /]
+	git init 
+	git add .
+	git commit -m "initial commit"
+	git remote add origin <your path of the new repository created on GitHub, click on code in the new repository and copy>
+	git branch -M main 
+	git push -u origin main
+output:
+The registration page in the DevOps folder should be pushed into the repository created. 
+
+4) Installation of Jenkins and Setup exploring Jenkins 
+1. Open Jenkins.io on browser 
+2. click on download > scroll down to see windows < click
+3. open the installer downloaded 
+4. click on next 
+5. click on 'Run service as local system'
+6. click next til you get java directory 
+7. click on change and select jdk 17 version installed in laptop
+8. click on install and finish 
+9. open localhost:8080 on browser and click on 'install suggested plugin'
+10. for password to unlock Jenkins go to file explorer > Jenkins.err > password and paste it there
+
+5) Demonstrate cotinuous integration and developement using jenkins
+1. open github > new file
+2. name the file 'Jenkinsfile' > type the below code
+	pipeline {
+		agent any 
+
+		stages{	
+			stage('Build'){
+				steps{
+					echo "Building..."
+				}
+			}
+			stage('Test')
+			{
+				steps{
+					echo "Testing..."
+				}
+			}	
+			stage('Deploy'){	
+				steps{
+					echo "Deploying..."
+				}
+			}
+		}
+	}
+3. click on commit changes 
+4. click on code > copy url 
+5. open localhost:8080 and login to jenkins 
+6. click on new item > 'gfg pipeline' > scroll down and click on pipeline > ok
+7. click on GitHub project > paste url
+8. scroll down, under definition change to 'pipeline script from SCM'
+9. under SCM choose Git > paste url > click on save 
+10. click on build now
+11. if there are any errors check the following - click on configure it will take you to the previous page 
+	- change */master to */main 
+	- check file name, make sure it is the same as you created in GitHub 
+output:
+click on console output or status 
+
+
+6) Explore docker commands for content management 
+1. open docker.com on browser > download for windows 
+2. install > login into docker desktop and keep it open
+3. open windows powershell and type the following 
+	docker run -d -p 8090:80 docker/welcome-to-docker
+4. open localhost:8090 on browser
+5. in windows powershell[to stop a container] 
+	docker ps 
+	docker ps --help
+	docker container ls 
+	docket stop <container_id>(you will find this from the above command)
+6. in windows powershell[to copy a container to a folder in file explorer]
+	docker container ls (to make sure you have containers)
+	if you don't have any containers create one using the 3rd step
+	docker exec -it <container_name>(you will find this in docker desktop) /bin/sh /docker-entrypoint.sh
+	docker container cp <container_name(same as above)>:/docker-entrypoint.sh <path of the folder you want to copy this to>
+output:
+open folder in file explorer to show the container copied.
+
+7) Develop a simple containerized application using docker
+1. Open VS code and open a folder and name it 'python-image'
+2. in 'python-image' create app.py and Dockerfile
+3. in Dockerfile write the below code
+	FROM python 
+	WORKDIR /app
+	COPY . /app
+	CMD["python3", "app.py"]
+4. in app.py write the below code
+	print("This is my first image")
+5. in the task bar above click terminal > new terminal
+6. in terminal below, enter
+	cd .\python-image\
+	docker build -t myfirstpythonapp .
+output:
+in terminal at last 'This is my first image.'
+
+8) Integrate Kubernetes and docker
+1. open docker desktop and sign in 
+2. go to settings > Kubernetes 
+3. enable Kubernetes > show system containers (advanced) > install 
+4. in cmd enter 
+	kubectl get nodes
+output:
+cmd output
+
+9) Automate the process of running containerized application for exp 7 using Kubernetes 
+1. open cmd and type the following 
+	kubectl get ns
+	kubectl config use-context docker-desktop
+	kubectl apply -f https://raw.githubusercontent.com/oumkale/k8sOperator/main/config/deployments/app.yaml
+	kubectl get po
+	kubectl port-forward svc/podtato-main 9000:9000
+	kubectl get deploy 
+output: 
+open localhost:9000
+
+10)Install and explore selenium for automated testing 
+1. download selenium java client driver
+2. launch eclipse IDE > file > new > java project, name it 'newproject' > finish
+3. right click on 'newproject' > new package > name it 'newpackage' > finish 
+4. right click on 'newpackage'> class > name it 'myClass' > finish 
+5. right click on 'newproject' > build path> configure build path > java build path > add external jars
+6. open downloaded selenium and double click on lib folder > select all the files in lib folder > open 
+7. select folders outside lib folder (if there are any) > apply and close
+output:
+newproject directory on the left
+
+11) Write a simple program in javascript perform testing using selenium
+1. open VS code and open selenium folder, in that, write index.html code
+2. in the same folder write test.js code
+3. open cmd and write the following 
+	npm install selenium_webdriver
+	npm install chromedriver
+	cd <path of selenium folder>
+	npm init -y
+	npm install selenium-webdriver chromedriver
+	node test.js
+output:
+it should open the index.html page, but if it is not opening then open in manually
+go to selenium folder and click on index.html
+
+12) Develop test cases for the above containerized application using selenium 
+1. open cmd and enter following 
+	docker --version 
+	python --version 
+	docker pull selenium/standalone-chrome
+	docker images
+	docker run -d -p 4444:4444 -v /dev/shm:/dev/shm selenium/standalone-chrome
+2. open localhost:4444
+3. open notepad and copy the seleniumDockerTest.py content in it and save it as 'seleniumDockerTest.py' in a new folder 'selenium-docker-test' in c
+4. in cmd
+	cd selenium-docker-test
+	python seleniumDockerTest.py
+output:
+in localhost:4444
+	
